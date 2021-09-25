@@ -117,6 +117,7 @@ describe('createRestaurant action', () => {
 
   let api;
   let store;
+  let promise;
 
   beforeEach(() => {
     api = {
@@ -141,7 +142,7 @@ describe('createRestaurant action', () => {
   describe('when save succeeds', () => {
     beforeEach(() => {
       api.createRestaurant.mockResolvedValue(responseRestaurant);
-      store.dispatch(createRestaurant(newRestaurantName));
+      promise = store.dispatch(createRestaurant(newRestaurantName));
     });
 
     it('stores the returned restaurant in the store', () => {
@@ -149,6 +150,9 @@ describe('createRestaurant action', () => {
         existingRestaurant,
         responseRestaurant,
       ]);
+    });
+    it('resolves', () => {
+      return expect(promise).resolves.toBeUndefined();
     });
   });
 });
